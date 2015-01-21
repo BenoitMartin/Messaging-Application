@@ -3,35 +3,40 @@
 
     <!--String List-->
     <string name="app_name">AndroidWebProject</string>
-    <string name="button_message_list">Afficher la liste des messages</string>
-    <string name="button_write_message">Écrire un message</string>
+    <string name="button_message_list">Show messages list</string>
+    <string name="button_write_message">Write a message</string>
     <string name="action_settings">Settings</string>
-    <string name="username">Nom utilisateur</string>
-    <string name="password">Mot de passe</string>
-    <string name="clear_button">Vider</string>
-    <string name="connect_button">Se Connecter</string>
-    <string name="send_message_button">Envoyer</string>
-    <string name="error_message">Message d\'erreur</string>
-    <string name="main_title">Formulaire de connexion</string>
-    <string name="message_header">Écrivez votre message ici</string>
-    <string name="message_sent">Message envoyé</string>
+    <string name="username">Username</string>
+    <string name="password">Password</string>
+    <string name="clear_button">Clean</string>
+    <string name="connect_button">Log in</string>
+    <string name="send_message_button">Send</string>
+    <string name="error_message">Error Message</string>
+    <string name="main_title">Connexion Form</string>
+    <string name="message_header">Write your message here</string>
+    <string name="message_sent">Message send</string>
 
-    <string name="alert_Disconnection_Title">Déconnection</string>
-    <string name="alert_Disconnection_Message">Cliquez sur oui pour quitter.</string>
-    <string name="alert_Disconnection_Yes">Oui</string>
-    <string name="alert_Disconnection_No">Non</string>
-    <string name="Disconnection_Toast_Message">Vous avez été déconnecté</string>
+    <string name="alert_Disconnection_Title">Log Out</string>
+    <string name="alert_Disconnection_Message">Click yes to quit.</string>
+    <string name="alert_Disconnection_Yes">Yes</string>
+    <string name="alert_Disconnection_No">No</string>
+    <string name="Disconnection_Toast_Message">You have been disconnected</string>
 
-    <string name="alert_Return_Title">Revenir en arrière ?</string>
-    <string name="alert_Return_Message">Cliquez sur oui pour revenir en arrière.</string>
-    <string name="alert_Return_Yes">Oui</string>
-    <string name="alert_Return_No">Non</string>
+    <string name="alert_Return_Title">Go back ?</string>
+    <string name="alert_Return_Message">Click yes to go back</string>
+    <string name="alert_Return_Yes">Yes</string>
+    <string name="alert_Return_No">No</string>
 
-    <string name="Toast_Cleaning_Message">Champs nettoyés !</string>
-    <string name="Log_Error_Message">Utilisateur et/ou mot de passe incorrects</string>
-
+    <string name="Toast_Cleaning_Message">Fields cleared !</string>
+    <string name="Log_Error_Message">User and/or password incorrects</string>
+    <string name="signup">Doesn\'t have an account ? Sign in !</string>
+    <string name="English_Language">English_Language</string>
 
     <!--Color List-->
     <color name="blue">#1446d4</color>
     <color name="white">#FFFFFF</color>
+    <string name="refresh_button">Refresh</string>
+    <string name="Spanish_Language">Spanish_Language</string>
+    <string name="French_Language">French_Language</string>
+
 </resources>

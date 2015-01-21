@@ -5,13 +5,12 @@
     <string name="app_name">AndroidWebProject</string>
     <string name="button_message_list">Afficher la liste des messages</string>
     <string name="button_write_message">Écrire un message</string>
-    <string name="action_settings">Settings</string>
+    <string name="action_settings">Paramètres</string>
     <string name="username">Nom utilisateur</string>
     <string name="password">Mot de passe</string>
     <string name="clear_button">Vider</string>
     <string name="connect_button">Se Connecter</string>
     <string name="send_message_button">Envoyer</string>
-    <string name="refresh_button">Rafraîchir</string>
     <string name="error_message">Message d\'erreur</string>
     <string name="main_title">Formulaire de connexion</string>
     <string name="message_header">Écrivez votre message ici</string>
@@ -30,7 +29,12 @@
 
     <string name="Toast_Cleaning_Message">Champs nettoyés !</string>
     <string name="Log_Error_Message">Utilisateur et/ou mot de passe incorrects</string>
-    <string name="EXTRA_LOGIN">username</string>
-    <string name="EXTRA_PASS">password</string>
+    <string name="signup">Pas de compte ? Enregistrez - vous !</string>
+    <string name="EXTRA_LOGIN" translatable="false">username</string>
+    <string name="EXTRA_PASS" translatable="false">password</string>
+    <string name="English_Language">Langue Anglaise</string>
+    <string name="refresh_button">Rafraîchir</string>
+    <string name="Spanish_Language">Langue Espagnole</string>
+    <string name="French_Language">Langue Française</string>
 
 </resources>

@@ -4,13 +4,18 @@ import android.app.AlertDialog;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.content.res.Configuration;
+import android.content.res.Resources;
 import android.os.Bundle;
 import android.support.v7.app.ActionBarActivity;
+import android.util.DisplayMetrics;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
 import android.widget.Toast;
+
+import java.util.Locale;
 
 /**
  * Created by BenKo on 09/01/2015.
@@ -79,9 +84,50 @@ public class ChoiceDisplayActivity extends ActionBarActivity {
 
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
-
+        String languageToLoad;
+        Locale locale;
+        Resources res;
+        DisplayMetrics dm;
+        Configuration conf;
+        Intent refresh;
         switch (item.getItemId()) {
-            case R.id.item1:
+            case R.id.English_Language:
+                languageToLoad = "en"; // your language
+                locale = new Locale(languageToLoad);
+                Locale.setDefault(locale);
+                res = getResources();
+                dm = res.getDisplayMetrics();
+                conf = res.getConfiguration();
+                conf.locale = locale;
+                res.updateConfiguration(conf, dm);
+                refresh = new Intent(this, MainActivity.class);
+                startActivity(refresh);
+                return true;
+            case R.id.French_Language:
+                languageToLoad = "fr"; // your language
+                locale = new Locale(languageToLoad);
+                Locale.setDefault(locale);
+                res = getResources();
+                dm = res.getDisplayMetrics();
+                conf = res.getConfiguration();
+                conf.locale = locale;
+                res.updateConfiguration(conf, dm);
+                refresh = new Intent(this, MainActivity.class);
+                startActivity(refresh);
+                return true;
+            case R.id.Spanish_Language:
+                languageToLoad = "es"; // your language
+                locale = new Locale(languageToLoad);
+                Locale.setDefault(locale);
+                res = getResources();
+                dm = res.getDisplayMetrics();
+                conf = res.getConfiguration();
+                conf.locale = locale;
+                res.updateConfiguration(conf, dm);
+                refresh = new Intent(this, MainActivity.class);
+                startActivity(refresh);
+                return true;
+            case R.id.Disconnect:
 
                 AlertDialog.Builder alertDialogBuilder = new AlertDialog.Builder(
                         context);
@@ -116,9 +162,13 @@ public class ChoiceDisplayActivity extends ActionBarActivity {
 
                 Toast.makeText(context,getString(R.string.Disconnection_Toast_Message), Toast.LENGTH_LONG).show();
                 return true;
+
             default:
                 return super.onOptionsItemSelected(item);
+
         }
+
+
     }
 
 }

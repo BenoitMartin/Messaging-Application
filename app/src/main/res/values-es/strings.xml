@@ -10,28 +10,32 @@
     <string name="password">Contraseña</string>
     <string name="clear_button">Vacío</string>
     <string name="connect_button">Iniciarse</string>
-    <string name="send_message_button">Envoyer</string>
-    <string name="error_message">Message d\'erreur</string>
-    <string name="main_title">Formulaire de connexion</string>
-    <string name="message_header">Écrivez votre message ici</string>
-    <string name="message_sent">Message envoyé</string>
+    <string name="send_message_button">Enviar</string>
+    <string name="error_message">Mensaje de error</string>
+    <string name="main_title"> Formulario de acceso</string>
+    <string name="message_header">Escribe un mensaje aquí</string>
+    <string name="message_sent">Mensaje enviado</string>
 
-    <string name="alert_Disconnection_Title">Déconnection</string>
-    <string name="alert_Disconnection_Message">Cliquez sur oui pour quitter.</string>
-    <string name="alert_Disconnection_Yes">Oui</string>
-    <string name="alert_Disconnection_No">Non</string>
-    <string name="Disconnection_Toast_Message">Vous avez été déconnecté</string>
+    <string name="alert_Disconnection_Title">Desconexión</string>
+    <string name="alert_Disconnection_Message">Haga clic en Sí para salir.</string>
+    <string name="alert_Disconnection_Yes">Sí</string>
+    <string name="alert_Disconnection_No">No</string>
+    <string name="Disconnection_Toast_Message">Ha sido desconectado</string>
 
-    <string name="alert_Return_Title">Revenir en arrière ?</string>
-    <string name="alert_Return_Message">Cliquez sur oui pour revenir en arrière.</string>
-    <string name="alert_Return_Yes">Oui</string>
-    <string name="alert_Return_No">Non</string>
+    <string name="alert_Return_Title">Volver ?</string>
+    <string name="alert_Return_Message">Haga clic en Sí para volver</string>
+    <string name="alert_Return_Yes">Sí</string>
+    <string name="alert_Return_No">No</string>
 
-    <string name="Toast_Cleaning_Message">Champs nettoyés !</string>
-    <string name="Log_Error_Message">Utilisateur et/ou mot de passe incorrects</string>
-
+    <string name="Toast_Cleaning_Message">Los campos limpiado !</string>
+    <string name="Log_Error_Message"> Usuario y / o contraseña incorrectas</string>
+    <string name="English_Language">Idioma Inglès</string>
 
     <!--Color List-->
     <color name="blue">#1446d4</color>
     <color name="white">#FFFFFF</color>
+    <string name="signup">¿No tienes cuenta? - Contratar!</string>
+    <string name="refresh_button">Refrescar</string>
+    <string name="French_Language">Idioma Francès</string>
+    <string name="Spanish_Language">Idioma Español</string>
 </resources>

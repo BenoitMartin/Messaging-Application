@@ -1,4 +1,5 @@
 package org.esaip.projetandroid;
+
 import java.io.BufferedReader;
 import java.io.InputStream;
 import java.io.InputStreamReader;
@@ -8,6 +9,7 @@ import java.util.Arrays;
 import java.util.Collections;
 import java.util.HashMap;
 import java.util.List;
+import java.util.Locale;
 
 import org.apache.http.HttpEntity;
 import org.apache.http.HttpResponse;
@@ -18,9 +20,13 @@ import android.app.Activity;
 import android.app.AlertDialog;
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.content.res.Configuration;
+import android.content.res.Resources;
 import android.os.AsyncTask;
 import android.os.Bundle;
+import android.support.v7.app.ActionBarActivity;
 import android.text.TextUtils;
+import android.util.DisplayMetrics;
 import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
@@ -33,7 +39,7 @@ import android.widget.ProgressBar;
 import android.widget.SearchView;
 import android.widget.SimpleAdapter;
 
-public class ListesMessagesActivity extends Activity implements SearchView.OnQueryTextListener {
+public class ListesMessagesActivity extends ActionBarActivity implements SearchView.OnQueryTextListener {
     private ListView listViewMessages;
     private StringBuilder response = new StringBuilder();
     private static ListesMessagesActivity context;
@@ -48,12 +54,12 @@ public class ListesMessagesActivity extends Activity implements SearchView.OnQue
         super.onCreate(savedInstanceState);
         setContentView(R.layout.listing_display);
 
-        context=this;
+        context = this;
 
         listViewMessages = (ListView) findViewById(R.id.listView);
-        spinner=(ProgressBar) findViewById(R.id.progressBar);
-        rafraichir=(Button) findViewById(R.id.rafraichir);
-        searchView=(SearchView) findViewById(R.id.searchView);
+        spinner = (ProgressBar) findViewById(R.id.progressBar);
+        rafraichir = (Button) findViewById(R.id.rafraichir);
+        searchView = (SearchView) findViewById(R.id.searchView);
 
         Intent intent = getIntent();
         if (intent != null) {
@@ -63,7 +69,7 @@ public class ListesMessagesActivity extends Activity implements SearchView.OnQue
         }
 
         GetMessages getMessagesThread = new GetMessages();
-        getMessagesThread.execute(userBeingUsed,passwordBeingUsed);
+        getMessagesThread.execute(userBeingUsed, passwordBeingUsed);
 
         rafraichir.setOnClickListener(new OnClickListener() {
 
@@ -71,9 +77,9 @@ public class ListesMessagesActivity extends Activity implements SearchView.OnQue
             public void onClick(View v) {
 
                 response.setLength(0);
-                searchView.setQuery("",false);
+                searchView.setQuery("", false);
                 GetMessages getMessagesThread = new GetMessages();
-                getMessagesThread.execute(userBeingUsed,passwordBeingUsed);
+                getMessagesThread.execute(userBeingUsed, passwordBeingUsed);
 
             }
 
@@ -81,7 +87,6 @@ public class ListesMessagesActivity extends Activity implements SearchView.OnQue
 
         listViewMessages.setTextFilterEnabled(true);
         setupSearchView();
-
 
 
     }
@@ -110,8 +115,6 @@ public class ListesMessagesActivity extends Activity implements SearchView.OnQue
     }
 
 
-
-
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         // Inflate the menu; this adds items to the action bar if it is present.
@@ -122,8 +125,51 @@ public class ListesMessagesActivity extends Activity implements SearchView.OnQue
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
 
+        String languageToLoad;
+        Locale locale;
+        Resources res;
+        DisplayMetrics dm;
+        Configuration conf;
+        Intent refresh;
         switch (item.getItemId()) {
-            case R.id.item1:
+            case R.id.English_Language:
+                languageToLoad = "en"; // your language
+                locale = new Locale(languageToLoad);
+                Locale.setDefault(locale);
+                res = getResources();
+                dm = res.getDisplayMetrics();
+                conf = res.getConfiguration();
+                conf.locale = locale;
+                res.updateConfiguration(conf, dm);
+                refresh = new Intent(this, MainActivity.class);
+                startActivity(refresh);
+                return true;
+            case R.id.French_Language:
+                languageToLoad = "fr"; // your language
+                locale = new Locale(languageToLoad);
+                Locale.setDefault(locale);
+                res = getResources();
+                dm = res.getDisplayMetrics();
+                conf = res.getConfiguration();
+                conf.locale = locale;
+                res.updateConfiguration(conf, dm);
+                refresh = new Intent(this, MainActivity.class);
+                startActivity(refresh);
+                return true;
+            case R.id.Spanish_Language:
+                languageToLoad = "es"; // your language
+                locale = new Locale(languageToLoad);
+                Locale.setDefault(locale);
+                res = getResources();
+                dm = res.getDisplayMetrics();
+                conf = res.getConfiguration();
+                conf.locale = locale;
+                res.updateConfiguration(conf, dm);
+                refresh = new Intent(this, MainActivity.class);
+                startActivity(refresh);
+                return true;
+
+            case R.id._return:
 
                 AlertDialog.Builder alertDialogBuilder = new AlertDialog.Builder(
                         context);
@@ -158,9 +204,10 @@ public class ListesMessagesActivity extends Activity implements SearchView.OnQue
                 return true;
             default:
                 return super.onOptionsItemSelected(item);
-        }
-    }
 
+        }
+
+    }
 
 
     private class GetMessages extends AsyncTask<String, Void, String> {
@@ -182,7 +229,7 @@ public class ListesMessagesActivity extends Activity implements SearchView.OnQue
                 userBeingUsed = params[0].toString();
                 passwordBeingUsed = params[1].toString();
                 HttpGet get = new HttpGet();
-                URI uri = new URI("http://formation-android-esaip.herokuapp.com/messages/"+userBeingUsed+"/"+passwordBeingUsed);
+                URI uri = new URI("http://formation-android-esaip.herokuapp.com/messages/" + userBeingUsed + "/" + passwordBeingUsed);
                 get.setURI(uri);
                 DefaultHttpClient httpClient = new DefaultHttpClient();
                 HttpResponse httpResponse = httpClient.execute(get);
@@ -232,26 +279,23 @@ public class ListesMessagesActivity extends Activity implements SearchView.OnQue
             listeMessagesChronologiques = (String[]) arrayToList.toArray();
 
 
+            String[][] listMessagesAntiChronologiques = new String[listeMessagesChronologiques.length / 2][2];
 
-            String[][] listMessagesAntiChronologiques = new String[listeMessagesChronologiques.length/2][2];
+            int message = 0;
 
-            int message=0;
-
-            for(int i = 0;i<listeMessagesChronologiques.length;i++)
-            {
-                listMessagesAntiChronologiques[message][0]=listeMessagesChronologiques[i];
-                listMessagesAntiChronologiques[message][1]=listeMessagesChronologiques[i+1].toUpperCase();
+            for (int i = 0; i < listeMessagesChronologiques.length; i++) {
+                listMessagesAntiChronologiques[message][0] = listeMessagesChronologiques[i];
+                listMessagesAntiChronologiques[message][1] = listeMessagesChronologiques[i + 1].toUpperCase();
                 i++;
                 message++;
             }
-
 
 
             List<HashMap<String, String>> liste = new ArrayList<HashMap<String, String>>();
 
             HashMap<String, String> element;
 
-            for(int i = 0 ; i < listMessagesAntiChronologiques.length ; i++) {
+            for (int i = 0; i < listMessagesAntiChronologiques.length; i++) {
 
                 element = new HashMap<String, String>();
                 element.put("text1", listMessagesAntiChronologiques[i][0]);
@@ -260,18 +304,15 @@ public class ListesMessagesActivity extends Activity implements SearchView.OnQue
             }
 
 
-            ListAdapter adapter = new SimpleAdapter(ListesMessagesActivity.context.getApplicationContext(),liste,android.R.layout.simple_list_item_2,new String[] {"text1", "text2"},new int[] {android.R.id.text1, android.R.id.text2 });
+            ListAdapter adapter = new SimpleAdapter(ListesMessagesActivity.context.getApplicationContext(), liste, android.R.layout.simple_list_item_2, new String[]{"text1", "text2"}, new int[]{android.R.id.text1, android.R.id.text2});
 
             listViewMessages.setAdapter(adapter);
-
 
 
         }
 
 
     }
-
-
 
 
 }

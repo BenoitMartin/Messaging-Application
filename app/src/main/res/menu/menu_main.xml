@@ -1,6 +1,11 @@
 <menu xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools" tools:context=".MainActivity">
-    <item android:id="@+id/action_settings" android:title="@string/action_settings"
+    <item android:id="@+id/English_Language" android:title="@string/English_Language"
         android:orderInCategory="100" app:showAsAction="never" />
+    <item android:id="@+id/French_Language" android:title="@string/French_Language"
+        android:orderInCategory="100" app:showAsAction="never" />
+    <item android:id="@+id/Spanish_Language" android:title="@string/Spanish_Language"
+        android:orderInCategory="100" app:showAsAction="never" />
+
 </menu>
