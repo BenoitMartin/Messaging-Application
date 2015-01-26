@@ -38,4 +38,13 @@
     <string name="refresh_button">Refrescar</string>
     <string name="French_Language">Idioma Francès</string>
     <string name="Spanish_Language">Idioma Español</string>
+    <string name="SearchQueryHint">Buscar aqui</string>
+    <string name="signin_Title">Formulario de contrato</string>
+    <string name="signin_button">Contratar</string>
+    <string name="Signin_Error_Message_User_Exist">Usuario existente !</string>
+    <string name="Signin_Error_Message_Not_Found">Error 404: Página no encontrada !</string>
+    <string name="Signin_Success_Message">Cuenta registrada !</string>
+    <string name="Other_error">Error</string>
+    <string name="Error_Invalid_Body_Objects">Los objetos deficientes en el cuerpo</string>
+    <string name="Authentification_Error">Error en la Autentificación</string>
 </resources>
