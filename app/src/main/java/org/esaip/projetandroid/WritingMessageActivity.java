@@ -18,15 +18,20 @@ import android.widget.EditText;
 import android.widget.ProgressBar;
 import android.widget.Toast;
 
+import org.apache.http.HttpResponse;
+import org.apache.http.StatusLine;
 import org.apache.http.client.ClientProtocolException;
 import org.apache.http.client.HttpClient;
-import org.apache.http.client.methods.HttpGet;
+import org.apache.http.client.methods.HttpPut;
+import org.apache.http.entity.StringEntity;
 import org.apache.http.impl.client.DefaultHttpClient;
-import org.esaip.projetandroid.R;
+import org.apache.http.message.BasicHeader;
+import org.apache.http.protocol.HTTP;
+import org.json.JSONException;
+import org.json.JSONStringer;
 
 import java.io.IOException;
 import java.io.UnsupportedEncodingException;
-import java.net.URLEncoder;
 import java.util.Locale;
 
 /**
@@ -66,51 +71,79 @@ public class WritingMessageActivity extends ActionBarActivity {
         );
     }
 
-    public class SendWrittenMessageTask extends android.os.AsyncTask<String, Void, Void> {
+    public class SendWrittenMessageTask extends android.os.AsyncTask<String, Void, Integer> {
         final String EXTRA_LOGIN = "username";
 
-        protected Void doInBackground(String[] params) {
+        protected Integer doInBackground(String[] params) {
 //            Log.i("doInBackground", "Begin!");
 
             userBeingUsed = params[0].toString();
             passwordBeingUsed = params[1].toString();
             String message = params[2].toString();
 
+
             HttpClient httpclient = new DefaultHttpClient();
-            HttpGet request = null;
+            HttpPut request = null;
             try {
 
-                String url = "http://formation-android-esaip.herokuapp.com/message/" + userBeingUsed + "/" + passwordBeingUsed + "/" + URLEncoder.encode(message, "UTF-8");
-                url = url.replaceAll("\\+", "%20");
-                request = new HttpGet(url);
-                Log.i("doInBackground", "" + url);
+//                String url = "http://formation-android-esaip.herokuapp.com/message/" + userBeingUsed + "/" + passwordBeingUsed + "/" + URLEncoder.encode(message, "UTF-8");
+//                url = url.replaceAll("\\+", "%20");
+                String url = "http://training.loicortola.com/parlez-vous-android/message/" + userBeingUsed + "/" + passwordBeingUsed;
+                request = new HttpPut(url);
+                request.setHeader("Content-Type", "application/json");
+                JSONStringer json = new JSONStringer()
+                        .object()
+                        .key("uuid").value(userBeingUsed)
+                        .key("login").value(passwordBeingUsed)
+                        .key("message").value(message)
+                        .endObject();
+
+                StringEntity entity = new StringEntity(json.toString());
+                entity.setContentType("application/json;charset=UTF-8 ");//text/plain;charset=UTF-8
+                entity.setContentEncoding(new BasicHeader(HTTP.CONTENT_TYPE, "application/json;charset=UTF-8"));
+                request.setEntity(entity);
+                HttpResponse httpresponse = httpclient.execute(request);
+                StatusLine statusLine = httpresponse.getStatusLine();
+                int statusCode = statusLine.getStatusCode();
+                return statusCode;
+
+            } catch (JSONException e) {
+                e.printStackTrace();
             } catch (UnsupportedEncodingException e) {
                 e.printStackTrace();
-            }
-//            Log.i("doInBackground", "httpRequestCreation!");
-
-
-            try {
-//                Log.i("doInBackground", "Requete pas envoyée!");
-                httpclient.execute(request);
-//                Log.i("doInBackground", "Request envoyée!");
-
             } catch (ClientProtocolException e) {
-                // Handle exception
+                e.printStackTrace();
             } catch (IOException e) {
-                // Handle exception
+                e.printStackTrace();
             }
 
-
-            return null;
+            return 0;
         }
 
 
         @Override
-        protected void onPostExecute(Void aVoid) {
-            super.onPostExecute(aVoid);
-            Toast.makeText(context, getString(R.string.message_sent), Toast.LENGTH_LONG).show();
+        protected void onPostExecute(Integer responseStatus) {
+            super.onPostExecute(responseStatus);
             progressRing.setVisibility(View.GONE);
+
+            switch (responseStatus) {
+                case 200:
+                    Toast.makeText(context, getString(R.string.message_sent), Toast.LENGTH_LONG).show();
+                    break;
+                case 400:
+                    Toast.makeText(context, getString(R.string.Error_Invalid_Body_Objects), Toast.LENGTH_LONG).show();
+                    break;
+                case 403:
+                    Toast.makeText(context, getString(R.string.Authentification_Error), Toast.LENGTH_LONG).show();
+                    break;
+                case 404:
+                    Toast.makeText(context, getString(R.string.Signin_Error_Message_Not_Found), Toast.LENGTH_LONG).show();
+                    break;
+                default:
+                    Toast.makeText(getApplicationContext(), getString(R.string.Other_error), Toast.LENGTH_SHORT).show();
+                    break;
+
+            }
         }
 
         @Override

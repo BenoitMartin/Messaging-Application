@@ -1,5 +1,7 @@
 package org.esaip.projetandroid;
 
+import android.app.AlertDialog;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.res.Configuration;
 import android.content.res.Resources;
@@ -162,7 +164,7 @@ public class SigninActivity extends ActionBarActivity {
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         MenuInflater inflater = getMenuInflater();
-        inflater.inflate(R.menu.menu_main, menu);
+        inflater.inflate(R.menu.menu_signin, menu);
         return true;
     }
 
@@ -187,7 +189,7 @@ public class SigninActivity extends ActionBarActivity {
                 conf = res.getConfiguration();
                 conf.locale = locale;
                 res.updateConfiguration(conf, dm);
-                refresh = new Intent(this, SigninActivity.class);
+                refresh = new Intent(this, MainActivity.class);
                 startActivity(refresh);
                 return true;
             case R.id.French_Language:
@@ -199,7 +201,7 @@ public class SigninActivity extends ActionBarActivity {
                 conf = res.getConfiguration();
                 conf.locale = locale;
                 res.updateConfiguration(conf, dm);
-                refresh = new Intent(this, SigninActivity.class);
+                refresh = new Intent(this, MainActivity.class);
                 startActivity(refresh);
                 return true;
             case R.id.Spanish_Language:
@@ -211,8 +213,42 @@ public class SigninActivity extends ActionBarActivity {
                 conf = res.getConfiguration();
                 conf.locale = locale;
                 res.updateConfiguration(conf, dm);
-                refresh = new Intent(this, SigninActivity.class);
+                refresh = new Intent(this, MainActivity.class);
                 startActivity(refresh);
+                return true;
+
+            case R.id._return:
+
+                AlertDialog.Builder alertDialogBuilder = new AlertDialog.Builder(
+                        getApplicationContext());
+
+                // set title
+                alertDialogBuilder.setTitle(getString(R.string.alert_Return_Title));
+
+
+                alertDialogBuilder
+                        .setMessage(getString(R.string.alert_Return_Message))
+                        .setCancelable(false)
+                        .setPositiveButton(getString(R.string.alert_Return_Yes), new DialogInterface.OnClickListener() {
+                            public void onClick(DialogInterface dialog, int id) {
+                                // if this button is clicked, close
+                                // current activity
+                                SigninActivity.this.finish();
+                            }
+                        })
+                        .setNegativeButton(getString(R.string.alert_Return_No), new DialogInterface.OnClickListener() {
+                            public void onClick(DialogInterface dialog, int id) {
+                                // if this button is clicked, just close
+                                // the dialog box and do nothing
+                                dialog.cancel();
+                            }
+                        });
+
+                // create alert dialog
+                AlertDialog alertDialog = alertDialogBuilder.create();
+
+                // show it
+                alertDialog.show();
                 return true;
             default:
                 return super.onOptionsItemSelected(item);
@@ -222,40 +258,6 @@ public class SigninActivity extends ActionBarActivity {
 
 
     public class SignInTask extends android.os.AsyncTask<String, Void, Integer> {
-        final String EXTRA_LOGIN = "username";
-
-//        protected Boolean doInBackground(String[] params) {
-//            Log.i("doInBackground", "Begin!");
-//
-//            userBeingUsed = params[0].toString();
-//            passwordBeingUsed = params[1].toString();
-//            HttpClient httpclient = new DefaultHttpClient();
-//            HttpGet request = new HttpGet("http://formation-android-esaip.herokuapp.com/connect/" + userBeingUsed + "/" + passwordBeingUsed);
-////            Log.i("doInBackground", "httpRequestCreation!");
-////            Log.i("doInBackground", "http://formation-android-esaip.herokuapp.com/connect/" + user + "/" + pass);
-//
-//            try {
-////                Log.i("doInBackground", "Request pas envoyée!");
-//                HttpResponse response = httpclient.execute(request);
-////                Log.i("doInBackground", "Request envoyée!");
-//                String resp = new InputStreamToString().convert(response.getEntity().getContent());
-////                Log.i("doInBackground", "response = !" + resp);
-//                if (resp.equals("true")) {
-////                    Log.i("doInBackground", "response est VRAI");
-//                    return true;
-//                } else {
-////                    Log.i("doInBackground", "response est FAUX");
-//                    return false;
-//                }
-//            } catch (ClientProtocolException e) {
-//                // Handle exception
-//            } catch (IOException e) {
-//                // Handle exception
-//            }
-//
-//
-//            return null;
-//        }
 
         protected Integer doInBackground(String[] params) {
             Log.i("doInBackground", "Begin!");
@@ -272,7 +274,6 @@ public class SigninActivity extends ActionBarActivity {
                 HttpResponse httpresponse = httpclient.execute(post);
                 StatusLine statusLine = httpresponse.getStatusLine();
                 int statusCode = statusLine.getStatusCode();
-                Log.i("Recup status code ",""+statusCode);
                 return statusCode;
 
 
