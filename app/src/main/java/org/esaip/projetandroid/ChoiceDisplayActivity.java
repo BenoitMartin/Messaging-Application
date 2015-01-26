@@ -38,7 +38,6 @@ public class ChoiceDisplayActivity extends ActionBarActivity {
 
         }
 
-
         button_write_message = (Button) findViewById(R.id.button_write_message);
         button_write_message.setOnClickListener(
                 new View.OnClickListener() {
@@ -48,12 +47,9 @@ public class ChoiceDisplayActivity extends ActionBarActivity {
                         intent.putExtra(getString(R.string.EXTRA_LOGIN), userBeingUsed);
                         intent.putExtra(getString(R.string.EXTRA_PASS), passwordBeingUsed);
                         startActivity(intent);
-
                     }
                 }
-
         );
-
 
         button_message_list = (Button) findViewById(R.id.button_message_list);
         button_message_list.setOnClickListener(
@@ -64,15 +60,9 @@ public class ChoiceDisplayActivity extends ActionBarActivity {
                         intent.putExtra(getString(R.string.EXTRA_LOGIN), userBeingUsed);
                         intent.putExtra(getString(R.string.EXTRA_PASS), passwordBeingUsed);
                         startActivity(intent);
-
                     }
                 }
-
         );
-
-
-
-
     }
 
     @Override
@@ -169,7 +159,7 @@ public class ChoiceDisplayActivity extends ActionBarActivity {
                 // show it
                 alertDialog.show();
 
-                Toast.makeText(context,getString(R.string.Disconnection_Toast_Message), Toast.LENGTH_LONG).show();
+                Toast.makeText(context, getString(R.string.Disconnection_Toast_Message), Toast.LENGTH_LONG).show();
                 return true;
 
             default:

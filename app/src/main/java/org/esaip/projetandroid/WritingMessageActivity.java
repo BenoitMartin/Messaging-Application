@@ -151,8 +151,6 @@ public class WritingMessageActivity extends ActionBarActivity {
 
 //            Log.i("onPreExecute", "Pré roue de chargement");
             progressRing.setVisibility(View.VISIBLE);
-
-
             super.onPreExecute();
         }
     }
@@ -221,14 +219,10 @@ public class WritingMessageActivity extends ActionBarActivity {
                 return true;
 
             case R.id._return:
-
                 AlertDialog.Builder alertDialogBuilder = new AlertDialog.Builder(
                         context);
-
                 // set title
                 alertDialogBuilder.setTitle(getString(R.string.alert_Return_Title));
-
-
                 alertDialogBuilder
                         .setMessage(getString(R.string.alert_Return_Message))
                         .setCancelable(false)

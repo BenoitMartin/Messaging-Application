@@ -123,18 +123,15 @@ public class MainActivity extends ActionBarActivity {
             // Restore value of members from saved state
             usernameField.setText(savedInstanceState.getString("usernameField"));
             passwordField.setText(savedInstanceState.getString("passwordField"));
-
         }
 
         sharedpreferences = getSharedPreferences(MyPREFERENCES, Context.MODE_PRIVATE);
-
         if (sharedpreferences.contains(Name)) {
             usernameField.setText(sharedpreferences.getString(Name, ""));
         }
         if (sharedpreferences.contains(Pass)) {
             passwordField.setText(sharedpreferences.getString(Pass, ""));
         }
-
 
         connect = (Button) findViewById(R.id.connect_button);
         connect.setOnClickListener(
@@ -148,10 +145,8 @@ public class MainActivity extends ActionBarActivity {
 
                             new ConnectTask().execute(usernameField.getText().toString(), passwordField.getText().toString());
                         }
-
                     }
                 }
-
         );
 
         clear = (Button) findViewById(R.id.clear_button);
@@ -163,7 +158,6 @@ public class MainActivity extends ActionBarActivity {
                         Toast.makeText(getApplication(), getString(R.string.error_message), Toast.LENGTH_SHORT).show();
                     }
                 }
-
         );
 
         TextView textView = (TextView) findViewById(R.id.signin_textview);
@@ -172,10 +166,8 @@ public class MainActivity extends ActionBarActivity {
             public void onClick(View v) {
                 // TODO Auto-generated method stub
                 new SignInTask().execute();
-
             }
         });
-
         Log.i("MainActivity", "onCreate!");
 
     }
@@ -268,15 +260,11 @@ public class MainActivity extends ActionBarActivity {
             passwordBeingUsed = params[1].toString();
             HttpClient httpclient = new DefaultHttpClient();
             HttpGet request = new HttpGet("http://training.loicortola.com/parlez-vous-android/connect/" + userBeingUsed + "/" + passwordBeingUsed);
-//            HttpGet request = new HttpGet("http://formation-android-esaip.herokuapp.com/connect/" + userBeingUsed + "/" + passwordBeingUsed);
-//            Log.i("doInBackground", "httpRequestCreation!");
-//            Log.i("doInBackground", "http://formation-android-esaip.herokuapp.com/connect/" + user + "/" + pass);
+//          HttpGet request = new HttpGet("http://formation-android-esaip.herokuapp.com/connect/" + userBeingUsed + "/" + passwordBeingUsed);
+
 
             try {
-//                Log.i("doInBackground", "Request pas envoyée!");
                 HttpResponse response = httpclient.execute(request);
-//                Log.i("doInBackground", "Request envoyée!");
-//                 Log.i("doInBackground", "response = !" + resp);
                 StatusLine statusLine = response.getStatusLine();
                 StringBuilder builder = new StringBuilder();
                 int statusCode = statusLine.getStatusCode();
@@ -297,8 +285,6 @@ public class MainActivity extends ActionBarActivity {
             } catch (IOException e) {
                 // Handle exception
             }
-
-
             return null;
         }
 
@@ -316,18 +302,14 @@ public class MainActivity extends ActionBarActivity {
                     editor.putString(Name, n);
                     editor.putString(Pass, p);
                     editor.commit();
-
                     Intent intent = new Intent(MainActivity.this, ChoiceDisplayActivity.class);
                     intent.putExtra(EXTRA_LOGIN, userBeingUsed);
                     intent.putExtra(EXTRA_PASS, passwordBeingUsed);
                     startActivity(intent);
-
                 } else {
                     Toast.makeText(getApplicationContext(), getString(R.string.Log_Error_Message), Toast.LENGTH_SHORT).show();
                 }
             }
-
-
         }
 
 
@@ -341,30 +323,21 @@ public class MainActivity extends ActionBarActivity {
     }
 
     public class SignInTask extends android.os.AsyncTask<String, Void, Boolean> {
-        final String EXTRA_LOGIN = "username";
-
         protected Boolean doInBackground(String[] params) {
             Log.i("doInBackground", "Begin!");
             return true;
         }
 
-
-
         @Override
         protected void onPostExecute(Boolean o) {
             super.onPostExecute(o);
             progressRing.setVisibility(View.GONE);
-
             Intent intent = new Intent(MainActivity.this,  SigninActivity.class);
             startActivity(intent);
-
-
         }
-
 
         @Override
         protected void onPreExecute() {
-
             Log.i("onPreExecute", "Pré roue de chargement");
             progressRing.setVisibility(View.VISIBLE);
             super.onPreExecute();

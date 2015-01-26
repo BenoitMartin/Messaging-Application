@@ -52,9 +52,7 @@ public class ListesMessagesActivity extends ActionBarActivity implements SearchV
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.listing_display);
-
         context = this;
-
         listViewMessages = (ListView) findViewById(R.id.listView);
         spinner = (ProgressBar) findViewById(R.id.progressBar);
         rafraichir = (Button) findViewById(R.id.rafraichir);
@@ -71,25 +69,17 @@ public class ListesMessagesActivity extends ActionBarActivity implements SearchV
         getMessagesThread.execute(userBeingUsed, passwordBeingUsed);
 
         rafraichir.setOnClickListener(new OnClickListener() {
-
             @Override
             public void onClick(View v) {
-
                 response.setLength(0);
                 searchView.setQuery("", false);
                 GetMessages getMessagesThread = new GetMessages();
                 getMessagesThread.execute(userBeingUsed, passwordBeingUsed);
-
             }
-
         });
-
         listViewMessages.setTextFilterEnabled(true);
         setupSearchView();
-
-
     }
-
 
     private void setupSearchView() {
         searchView.setIconifiedByDefault(false);
@@ -123,7 +113,6 @@ public class ListesMessagesActivity extends ActionBarActivity implements SearchV
 
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
-
         String languageToLoad;
         Locale locale;
         Resources res;
@@ -184,8 +173,6 @@ public class ListesMessagesActivity extends ActionBarActivity implements SearchV
 
                 // set title
                 alertDialogBuilder.setTitle(getString(R.string.alert_Return_Title));
-
-
                 alertDialogBuilder
                         .setMessage(getString(R.string.alert_Return_Message))
                         .setCancelable(false)
@@ -222,7 +209,6 @@ public class ListesMessagesActivity extends ActionBarActivity implements SearchV
 
         @Override
         protected void onPreExecute() {
-
             spinner.setVisibility(View.VISIBLE);
             rafraichir.setVisibility(View.GONE);
             listViewMessages.setVisibility(View.GONE);
@@ -232,8 +218,6 @@ public class ListesMessagesActivity extends ActionBarActivity implements SearchV
         @Override
         protected JSONArray doInBackground(String... params) {
             JSONArray finalResult = null;
-            String responseText = "";
-
             try {
                 userBeingUsed = params[0].toString();
                 passwordBeingUsed = params[1].toString();
@@ -242,10 +226,8 @@ public class ListesMessagesActivity extends ActionBarActivity implements SearchV
                 get.setURI(uri);
                 DefaultHttpClient httpClient = new DefaultHttpClient();
                 HttpResponse httpResponse = httpClient.execute(get);
-
                 if (httpResponse.getStatusLine().getStatusCode() == 200) {
                     Log.d("[GET REQUEST]1", "HTTP Get succeeded");
-
                     HttpResponse response; // some response object
                     BufferedReader reader = new BufferedReader(new InputStreamReader(httpResponse.getEntity().getContent(), "UTF-8"));
                     StringBuilder builder = new StringBuilder();
@@ -255,79 +237,36 @@ public class ListesMessagesActivity extends ActionBarActivity implements SearchV
                     JSONTokener tokener = new JSONTokener(builder.toString());
                     finalResult = new JSONArray(tokener);
                     return finalResult;
-
                 }
             } catch (Exception e) {
                 Log.e("[GET REQUEST]2", e.getMessage());
             }
-            Log.d("[GET REQUEST]3", response.toString());
-
-
             return finalResult;
         }
 
 
         protected void onPostExecute(JSONArray answer) {
-
-
             spinner.setVisibility(View.GONE);
             rafraichir.setVisibility(View.VISIBLE);
             listViewMessages.setVisibility(View.VISIBLE);
             searchView.setVisibility(View.VISIBLE);
-            List<HashMap<String, String>> liste = new ArrayList<HashMap<String, String>>();
-            HashMap<String, String> element;
-
+            List<HashMap<String, String>> messageList = new ArrayList<HashMap<String, String>>();
+            HashMap<String, String> message;
             JSONObject obj;
             try {
                 for (int count = answer.length() - 1; count >= 0; count--) {
                     obj = answer.getJSONObject(count);
                     String login = obj.getString("login").toUpperCase();
-                    String message = obj.getString("message");
-                    element = new HashMap<String, String>();
-                    element.put("text1", login);
-                    element.put("text2", message);
-                    liste.add(element);
+                    String content = obj.getString("message");
+                    message = new HashMap<String, String>();
+                    message.put("text1", login);
+                    message.put("text2", content);
+                    messageList.add(message);
                 }
             } catch (JSONException e) {
                 e.printStackTrace();
             }
-
-
-//            String[] listeMessagesChronologiques = answer.split(";|\\:");
-//
-//
-//            List<String> arrayToList = Arrays.asList(listeMessagesChronologiques);
-//            Collections.reverse(arrayToList);
-//            listeMessagesChronologiques = (String[]) arrayToList.toArray();
-//
-//
-//            String[][] listMessagesAntiChronologiques = new String[listeMessagesChronologiques.length / 2][2];
-//
-//            int message = 0;
-//
-//            for (int i = 0; i < listeMessagesChronologiques.length; i++) {
-//                listMessagesAntiChronologiques[message][0] = listeMessagesChronologiques[i];
-//                listMessagesAntiChronologiques[message][1] = listeMessagesChronologiques[i + 1].toUpperCase();
-//                i++;
-//                message++;
-//            }
-
-
-//            List<HashMap<String, String>> liste = new ArrayList<HashMap<String, String>>();
-//
-//            HashMap<String, String> element;
-
-//            for (int i = 0; i < listMessagesAntiChronologiques.length; i++) {
-//
-//                element = new HashMap<String, String>();
-//                element.put("text1", listMessagesAntiChronologiques[i][0]);
-//                element.put("text2", listMessagesAntiChronologiques[i][1]);
-//                liste.add(element);
-//            }
-
-
-            ListAdapter adapter = new SimpleAdapter(ListesMessagesActivity.context.getApplicationContext(), liste, android.R.layout.simple_list_item_2, new String[]{"text1", "text2"}, new int[]{android.R.id.text1, android.R.id.text2});
-
+            ListAdapter adapter = new SimpleAdapter(ListesMessagesActivity.context.getApplicationContext(), messageList, android.R.layout.simple_list_item_2, new String[]{"text1", "text2"}, new int[]{android.R.id.text1, android.R.id.text2});
             listViewMessages.setAdapter(adapter);
 
 
