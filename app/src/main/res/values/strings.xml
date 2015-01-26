@@ -30,8 +30,8 @@
     <string name="Toast_Cleaning_Message">Champs nettoyés !</string>
     <string name="Log_Error_Message">Utilisateur et/ou mot de passe incorrects</string>
     <string name="signup">Pas de compte ? Enregistrez - vous !</string>
-    <string name="EXTRA_LOGIN" translatable="false">username</string>
-    <string name="EXTRA_PASS" translatable="false">password</string>
+    <string name="EXTRA_LOGIN">username</string>
+    <string name="EXTRA_PASS">password</string>
     <string name="English_Language">Langue Anglaise</string>
     <string name="refresh_button">Rafraîchir</string>
     <string name="Spanish_Language">Langue Espagnole</string>

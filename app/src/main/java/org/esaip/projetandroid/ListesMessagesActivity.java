@@ -140,8 +140,11 @@ public class ListesMessagesActivity extends ActionBarActivity implements SearchV
                 conf = res.getConfiguration();
                 conf.locale = locale;
                 res.updateConfiguration(conf, dm);
-                refresh = new Intent(this, MainActivity.class);
+                refresh = new Intent(this, ListesMessagesActivity.class);
+                refresh.putExtra(getString(R.string.EXTRA_LOGIN), userBeingUsed);
+                refresh.putExtra(getString(R.string.EXTRA_PASS), passwordBeingUsed);
                 startActivity(refresh);
+                this.finish();
                 return true;
             case R.id.French_Language:
                 languageToLoad = "fr"; // your language
@@ -152,8 +155,11 @@ public class ListesMessagesActivity extends ActionBarActivity implements SearchV
                 conf = res.getConfiguration();
                 conf.locale = locale;
                 res.updateConfiguration(conf, dm);
-                refresh = new Intent(this, MainActivity.class);
+                refresh = new Intent(this, ListesMessagesActivity.class);
+                refresh.putExtra(getString(R.string.EXTRA_LOGIN), userBeingUsed);
+                refresh.putExtra(getString(R.string.EXTRA_PASS), passwordBeingUsed);
                 startActivity(refresh);
+                this.finish();
                 return true;
             case R.id.Spanish_Language:
                 languageToLoad = "es"; // your language
@@ -164,8 +170,11 @@ public class ListesMessagesActivity extends ActionBarActivity implements SearchV
                 conf = res.getConfiguration();
                 conf.locale = locale;
                 res.updateConfiguration(conf, dm);
-                refresh = new Intent(this, MainActivity.class);
+                refresh = new Intent(this, ListesMessagesActivity.class);
+                refresh.putExtra(getString(R.string.EXTRA_LOGIN), userBeingUsed);
+                refresh.putExtra(getString(R.string.EXTRA_PASS), passwordBeingUsed);
                 startActivity(refresh);
+                this.finish();
                 return true;
 
             case R.id._return:
@@ -222,7 +231,7 @@ public class ListesMessagesActivity extends ActionBarActivity implements SearchV
 
         @Override
         protected JSONArray doInBackground(String... params) {
-            JSONArray finalResult=null;
+            JSONArray finalResult = null;
             String responseText = "";
 
             try {
@@ -240,9 +249,9 @@ public class ListesMessagesActivity extends ActionBarActivity implements SearchV
                     HttpResponse response; // some response object
                     BufferedReader reader = new BufferedReader(new InputStreamReader(httpResponse.getEntity().getContent(), "UTF-8"));
                     StringBuilder builder = new StringBuilder();
-                    for (String line = null; (line = reader.readLine()) != null;) {
+                    for (String line = null; (line = reader.readLine()) != null; ) {
                         builder.append(line).append("\n");
-                     }
+                    }
                     JSONTokener tokener = new JSONTokener(builder.toString());
                     finalResult = new JSONArray(tokener);
                     return finalResult;
@@ -252,7 +261,6 @@ public class ListesMessagesActivity extends ActionBarActivity implements SearchV
                 Log.e("[GET REQUEST]2", e.getMessage());
             }
             Log.d("[GET REQUEST]3", response.toString());
-
 
 
             return finalResult;
@@ -271,10 +279,8 @@ public class ListesMessagesActivity extends ActionBarActivity implements SearchV
 
             JSONObject obj;
             try {
-//                for (int count = answer.length(); count >= 0; count--) {
-                    for (int count = answer.length()-1; count >=0; count--) {
-                     obj = answer.getJSONObject(count);
-
+                for (int count = answer.length() - 1; count >= 0; count--) {
+                    obj = answer.getJSONObject(count);
                     String login = obj.getString("login").toUpperCase();
                     String message = obj.getString("message");
                     element = new HashMap<String, String>();
@@ -285,10 +291,6 @@ public class ListesMessagesActivity extends ActionBarActivity implements SearchV
             } catch (JSONException e) {
                 e.printStackTrace();
             }
-
-
-
-
 
 
 //            String[] listeMessagesChronologiques = answer.split(";|\\:");

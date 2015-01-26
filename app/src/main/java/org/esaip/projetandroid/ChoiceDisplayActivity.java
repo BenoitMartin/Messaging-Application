@@ -100,8 +100,11 @@ public class ChoiceDisplayActivity extends ActionBarActivity {
                 conf = res.getConfiguration();
                 conf.locale = locale;
                 res.updateConfiguration(conf, dm);
-                refresh = new Intent(this, MainActivity.class);
+                refresh = new Intent(this, ChoiceDisplayActivity.class);
+                refresh.putExtra(getString(R.string.EXTRA_LOGIN), userBeingUsed);
+                refresh.putExtra(getString(R.string.EXTRA_PASS), passwordBeingUsed);
                 startActivity(refresh);
+                this.finish();
                 return true;
             case R.id.French_Language:
                 languageToLoad = "fr"; // your language
@@ -112,8 +115,11 @@ public class ChoiceDisplayActivity extends ActionBarActivity {
                 conf = res.getConfiguration();
                 conf.locale = locale;
                 res.updateConfiguration(conf, dm);
-                refresh = new Intent(this, MainActivity.class);
+                refresh = new Intent(this, ChoiceDisplayActivity.class);
+                refresh.putExtra(getString(R.string.EXTRA_LOGIN), userBeingUsed);
+                refresh.putExtra(getString(R.string.EXTRA_PASS), passwordBeingUsed);
                 startActivity(refresh);
+                this.finish();
                 return true;
             case R.id.Spanish_Language:
                 languageToLoad = "es"; // your language
@@ -124,8 +130,11 @@ public class ChoiceDisplayActivity extends ActionBarActivity {
                 conf = res.getConfiguration();
                 conf.locale = locale;
                 res.updateConfiguration(conf, dm);
-                refresh = new Intent(this, MainActivity.class);
+                refresh = new Intent(this, ChoiceDisplayActivity.class);
+                refresh.putExtra(getString(R.string.EXTRA_LOGIN), userBeingUsed);
+                refresh.putExtra(getString(R.string.EXTRA_PASS), passwordBeingUsed);
                 startActivity(refresh);
+                this.finish();
                 return true;
             case R.id.Disconnect:
 

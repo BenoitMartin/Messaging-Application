@@ -189,8 +189,9 @@ public class SigninActivity extends ActionBarActivity {
                 conf = res.getConfiguration();
                 conf.locale = locale;
                 res.updateConfiguration(conf, dm);
-                refresh = new Intent(this, MainActivity.class);
+                refresh = new Intent(this, SigninActivity.class);
                 startActivity(refresh);
+                this.finish();
                 return true;
             case R.id.French_Language:
                 languageToLoad = "fr"; // your language
@@ -201,8 +202,9 @@ public class SigninActivity extends ActionBarActivity {
                 conf = res.getConfiguration();
                 conf.locale = locale;
                 res.updateConfiguration(conf, dm);
-                refresh = new Intent(this, MainActivity.class);
+                refresh = new Intent(this, SigninActivity.class);
                 startActivity(refresh);
+                this.finish();
                 return true;
             case R.id.Spanish_Language:
                 languageToLoad = "es"; // your language
@@ -213,8 +215,9 @@ public class SigninActivity extends ActionBarActivity {
                 conf = res.getConfiguration();
                 conf.locale = locale;
                 res.updateConfiguration(conf, dm);
-                refresh = new Intent(this, MainActivity.class);
+                refresh = new Intent(this, SigninActivity.class);
                 startActivity(refresh);
+                this.finish();
                 return true;
 
             case R.id._return:

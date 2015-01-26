@@ -223,6 +223,7 @@ public class MainActivity extends ActionBarActivity {
                 res.updateConfiguration(conf, dm);
                 refresh = new Intent(this, MainActivity.class);
                 startActivity(refresh);
+                this.finish();
                 return true;
             case R.id.French_Language:
                 languageToLoad = "fr"; // your language
@@ -235,6 +236,7 @@ public class MainActivity extends ActionBarActivity {
                 res.updateConfiguration(conf, dm);
                 refresh = new Intent(this, MainActivity.class);
                 startActivity(refresh);
+                this.finish();
                 return true;
             case R.id.Spanish_Language:
                 languageToLoad = "es"; // your language
@@ -247,6 +249,7 @@ public class MainActivity extends ActionBarActivity {
                 res.updateConfiguration(conf, dm);
                 refresh = new Intent(this, MainActivity.class);
                 startActivity(refresh);
+                this.finish();
                 return true;
             default:
                 return super.onOptionsItemSelected(item);
